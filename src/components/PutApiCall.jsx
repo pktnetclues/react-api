@@ -1,32 +1,22 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 
-export default function PutApiCall({ id, updatePost }) {
+export default function PutApiCall({ id, title, body, userId, updatePost }) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const [formData, setFormData] = useState({
-    title: "",
-    body: "",
-    userId: "",
+    title: title,
+    body: body,
+    userId: userId,
   });
-
-  useEffect(() => {
-    GetData();
-  }, []);
 
   const postData = {
     title: formData.title,
     body: formData.body,
     userId: formData.userId,
   };
-
-  async function GetData() {
-    const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
-    const data = await res.json();
-    setFormData(data);
-  }
 
   async function EditData() {
     const res = await fetch(

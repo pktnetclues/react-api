@@ -12,6 +12,10 @@ export default function PostApiCall({ addPost }) {
     userId: "",
   });
 
+  const handleChange = (e) => {
+    setFormData(...formData, ([e.target.name] = e.target.value));
+  };
+
   const postData = {
     title: formData.title,
     body: formData.body,
@@ -55,13 +59,15 @@ export default function PostApiCall({ addPost }) {
             </label>
             <input
               onChange={(e) => {
-                setFormData({ ...formData, userId: e.target.value });
+                setFormData(handleChange);
               }}
+              name="userId"
               value={formData.userId}
               type="number"
               className="form-control"
               id="exampleFormControlInput1"
               placeholder="1"
+              required
             />
           </div>
           <div className="mb-3">
@@ -70,13 +76,15 @@ export default function PostApiCall({ addPost }) {
             </label>
             <input
               onChange={(e) => {
-                setFormData({ ...formData, title: e.target.value });
+                setFormData(handleChange);
               }}
+              name="title"
               value={formData.title}
               type="text"
               className="form-control"
               id="exampleFormControlInput1"
               placeholder="Pankaj Kumar"
+              required
             />
           </div>
           <div className="mb-3">
@@ -85,12 +93,14 @@ export default function PostApiCall({ addPost }) {
             </label>
             <textarea
               onChange={(e) => {
-                setFormData({ ...formData, body: e.target.value });
+                setFormData(handleChange);
               }}
               value={formData.body}
+              name="body"
               className="form-control"
               id="exampleFormControlTextarea1"
               rows="3"
+              required
             ></textarea>
           </div>
           <Modal.Footer>

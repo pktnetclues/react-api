@@ -20,6 +20,11 @@ export default function ApiCall() {
     setApiData(data.slice(0, 9));
   }
 
+  //Function to add new post in local because the api will not update in database
+  function addPost(newPost) {
+    setApiData([...apiData, newPost]);
+  }
+
   async function deletePost(id) {
     const res = await fetch(
       `https://jsonplaceholder.typicode.com/posts/${id}`,
@@ -40,10 +45,6 @@ export default function ApiCall() {
       post.id === updatedPost.id ? updatedPost : post
     );
     setApiData(updatedData);
-  }
-
-  function addPost(newPost) {
-    setApiData([...apiData, newPost]);
   }
 
   return (
@@ -71,7 +72,13 @@ export default function ApiCall() {
                 <td>{data.body}</td>
                 <td className="operation">
                   <DeleteApiCall handleDelete={() => deletePost(data.id)} />
-                  <PutApiCall updatePost={updatePost} id={data.id} />
+                  <PutApiCall
+                    updatePost={updatePost}
+                    id={data.id}
+                    title={data.title}
+                    body={data.body}
+                    userId={data.userId}
+                  />
                 </td>
               </tr>
             );
